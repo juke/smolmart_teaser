@@ -1,0 +1,60 @@
+# Smolmart Landing Page Specification
+
+## Overview
+A modern, engaging landing page to showcase the Smolmart community art platform and drive user interest. Focus on visual appeal and clear messaging to build an early waitlist.
+
+## Tech Stack
+- Astro (static site generation)
+- Tailwind CSS (styling)
+- shadcn/ui (UI components)
+
+## Key Sections
+
+### 1. Hero Section
+- Bold headline and platform description
+- Email signup form CTA
+
+### 2. Feature Highlights 
+- Three key features with icons
+- Simple animations on scroll
+- Focus on community art aspects
+
+### 3. How It Works
+- Simple step-by-step guide
+- Visual illustrations
+- Clear value proposition
+
+    1. **Browse & Discover**
+    - Explore meme gallery and custom artwork
+    - Vote on community content
+    - Earn points through participation
+
+    2. **Commission Art**
+    - Find your perfect artist
+    - Submit commission requests
+    - Track progress in real-time
+
+    3. **Join as an Artist**
+    - Create your portfolio
+    - Accept commissions
+    - Build reputation with "Banana" score
+
+    #### Community Features
+    - Submit and vote on memes
+    - Earn points for active participation
+    - Unlock perks and special features
+    - Track reputation through "Banana" score
+
+### 4. Community Preview
+- Sample artwork grid
+- Early access incentives
+
+### 5. Footer
+- Social links
+- Basic navigation
+- Contact info
+
+## Technical Requirements
+- Fully responsive
+- Optimized performance
+- Accessible design
