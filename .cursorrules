@@ -8,6 +8,9 @@ A modern, engaging landing page to showcase the Smolmart community art platform 
 - Tailwind CSS (styling)
 - shadcn/ui (UI components)
 
+I've already ran `npm create astro@latest . -- --template basics --tailwind --typescript --yes`
+Add frameworks like tailwind etc using `astro add`.
+
 ## Key Sections
 
 ### 1. Hero Section
