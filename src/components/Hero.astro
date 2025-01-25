@@ -1,0 +1,339 @@
+---
+interface Props {
+  logo: ImageMetadata;
+  smol2: ImageMetadata;
+  smol3: ImageMetadata;
+  smol4: ImageMetadata;
+}
+
+const { logo, smol2, smol3, smol4 } = Astro.props;
+---
+
+<div class="flex flex-col items-center gap-8 sm:gap-12 text-center max-w-5xl mx-auto">
+  <div class="space-y-6 sm:space-y-10">
+    <img
+      src={logo.src}
+      alt="Smolmart Logo"
+      class="h-32 sm:h-48 md:h-64 w-auto mx-auto animate-fade-in"
+    />
+    <div class="space-y-4 sm:space-y-6">
+      <div class="space-y-2">
+        <p class="text-xs sm:text-sm font-medium text-primary uppercase tracking-[0.2em] animate-slide-up">
+          Welcome to the future of art
+        </p>
+        <h1 class="text-3xl/tight sm:text-4xl/tight lg:text-5xl/tight font-bold tracking-normal animate-slide-up">
+          <span class="inline-block bg-gradient-to-b from-primary/40 to-primary/0 px-2 sm:px-4 py-1 -mx-2 sm:-mx-4">Community</span>
+          <span class="inline-block bg-gradient-to-b from-foreground/10 to-foreground/0 px-2 sm:px-4 py-1 -mx-2 sm:-mx-4"> Driven</span>
+          <span class="inline-block bg-gradient-to-b from-secondary/40 to-secondary/0 px-2 sm:px-4 py-1 -mx-2 sm:-mx-4"> Marketplace</span>
+        </h1>
+      </div>
+      <p class="text-sm sm:text-base lg:text-lg text-muted/90 max-w-xl font-medium mx-auto tracking-wide [text-wrap:balance] px-4 animate-slide-up">
+        Join a vibrant community of creators and collectors. Buy, sell, and commission unique digital art and memes.
+      </p>
+    </div>
+  </div>
+
+  <!-- Hidden images for Three.js textures -->
+  <div class="hidden">
+    <img src={smol2.src} alt="Art Example 1" id="texture1" />
+    <img src={smol3.src} alt="Art Example 2" id="texture2" />
+    <img src={smol4.src} alt="Art Example 3" id="texture3" />
+  </div>
+
+  <!-- Three.js Canvas Container -->
+  <div class="relative w-full -mt-12 sm:-mt-20 mb-48 sm:mb-64">
+    <div class="absolute left-1/2 -translate-x-1/2" style="width: 150%;">
+      <canvas id="art-gallery" class="w-full h-[320px] sm:h-[400px] rounded-xl"></canvas>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mt-32 sm:mt-24 animate-slide-up">
+    {
+      ["CREATIVE", "MEMES", "VIRTUAL"].map((tag, i) => (
+        <span
+          class={`px-4 sm:px-6 py-2 bg-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 text-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'} rounded-lg text-xs sm:text-sm font-medium shadow-sm shadow-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 tracking-widest hover:scale-105 transition-transform`}
+        >
+          {tag}
+        </span>
+      ))
+    }
+  </div>
+
+  <div class="mt-8 sm:mt-12 w-full max-w-md px-4 animate-slide-up">
+    <form class="flex flex-col sm:flex-row gap-3">
+      <input
+        type="email"
+        placeholder="Enter your email for early access"
+        class="flex-1 px-4 sm:px-6 py-3 rounded-lg bg-background/50 border border-primary/20 focus:border-primary/50 outline-none text-sm shadow-sm tracking-wide transition-transform hover:scale-[1.01] focus:scale-[1.01]"
+      />
+      <button
+        type="submit"
+        class="px-6 py-3 rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground font-medium transition-transform hover:scale-[1.02] active:scale-[0.98]"
+      >
+        Join Now
+      </button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  function createRoundedRectShape(width: number, height: number, radius: number) {
+    const shape = new THREE.Shape();
+    
+    shape.moveTo(-width/2 + radius, -height/2);
+    shape.lineTo(width/2 - radius, -height/2);
+    shape.quadraticCurveTo(width/2, -height/2, width/2, -height/2 + radius);
+    shape.lineTo(width/2, height/2 - radius);
+    shape.quadraticCurveTo(width/2, height/2, width/2 - radius, height/2);
+    shape.lineTo(-width/2 + radius, height/2);
+    shape.quadraticCurveTo(-width/2, height/2, -width/2, height/2 - radius);
+    shape.lineTo(-width/2, -height/2 + radius);
+    shape.quadraticCurveTo(-width/2, -height/2, -width/2 + radius, -height/2);
+
+    return shape;
+  }
+
+  window.addEventListener('load', () => {
+    const canvas = document.getElementById('art-gallery') as HTMLCanvasElement;
+    const scene = new THREE.Scene();
+    
+    // Replace the existing lighting setup with:
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
+    scene.add(ambientLight);
+
+    // Replace the directional light with a focused spotlight
+    const galleryLight = new THREE.SpotLight(0xffffff, 22.0, 50, Math.PI/3.2, 0.4, 0.5);
+    galleryLight.position.set(0, 12, 5);  // Increased Y from 8 to 12
+    galleryLight.target.position.set(0, 2, 0);  // Adjusted target Y from 0 to 2 to maintain angle
+    galleryLight.castShadow = true;
+
+    // Darker shadows
+    galleryLight.shadow.bias = -0.0002;
+    galleryLight.shadow.darkness = 1.0;
+
+    scene.add(galleryLight);
+    scene.add(galleryLight.target);
+
+    // Brighter fill light
+    const fillLight = new THREE.PointLight(0xffffff, 4.0, 30);
+    fillLight.position.set(0, 5, 10);
+    scene.add(fillLight);
+
+    const camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    camera.position.set(0, 3.5, 15);
+    camera.rotation.x = -0.02;
+    
+    const renderer = new THREE.WebGLRenderer({ 
+      canvas, 
+      alpha: true, 
+      antialias: true,
+      powerPreference: "high-performance"
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+    // Create art card textures
+    const textureLoader = new THREE.TextureLoader();
+    const artTextures = [
+      textureLoader.load(document.getElementById('texture1')?.getAttribute('src') || ''),
+      textureLoader.load(document.getElementById('texture2')?.getAttribute('src') || ''),
+      textureLoader.load(document.getElementById('texture3')?.getAttribute('src') || '')
+    ];
+
+    // Create art cards with enhanced geometry and materials
+    const cards: THREE.Mesh[] = [];
+    const roundedRectShape = createRoundedRectShape(6, 6, 0.4);
+    const extrudeSettings = {
+      steps: 1,
+      depth: 0.05,
+      bevelEnabled: true,
+      bevelThickness: 0.02,
+      bevelSize: 0.02,
+      bevelOffset: 0,
+      bevelSegments: 3
+    };
+    const cardGeometry = new THREE.ExtrudeGeometry(roundedRectShape, extrudeSettings);
+    
+    // Adjust UV mapping with proper scaling
+    const uvAttribute = cardGeometry.attributes.uv;
+    const geometryPositions = cardGeometry.attributes.position;
+    for (let i = 0; i < uvAttribute.count; i++) {
+      const x = geometryPositions.getX(i);
+      const y = geometryPositions.getY(i);
+      uvAttribute.setXY(i, 
+        (x + 3) / 6 * 0.9 + 0.05,          // Adjusted for new size
+        1 - ((y + 3) / 6 * 0.9 + 0.05)     // Adjusted for new size
+      );
+    }
+
+    // Update the card positions to include both start and end positions
+    const cardPositions = [
+      { 
+        start: { x: 0, y: 2.0, z: 0.2, ry: 0 },
+        end: { x: -7.0, y: 2.2, z: 0, ry: 0.25 }
+      },
+      { 
+        start: { x: 0, y: 1.95, z: 0.1, ry: 0 },
+        end: { x: 0, y: 1.9, z: 0, ry: -0.1 }
+      },
+      { 
+        start: { x: 0, y: 1.9, z: 0, ry: 0 },
+        end: { x: 7.0, y: 2.2, z: 0, ry: -0.25 }
+      }
+    ];
+    
+    artTextures.forEach((texture, index) => {
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.flipY = false;
+      
+      // Front face material with texture
+      const frontMaterial = new THREE.MeshPhysicalMaterial({
+        map: texture,
+        transparent: true,
+        side: THREE.DoubleSide,
+        metalness: 0.3,
+        roughness: 0.4,
+        emissive: 0x444444,
+        emissiveIntensity: 0.18,
+        clearcoat: 0.6,
+        clearcoatRoughness: 0.2
+      });
+
+      // Edge material
+      const edgeMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0x222222,
+        metalness: 0.2,
+        roughness: 0.9,
+        side: THREE.DoubleSide
+      });
+
+      // Create materials array - first material is for front/back faces, second for edges
+      const materials = [frontMaterial, edgeMaterial];
+      const card = new THREE.Mesh(cardGeometry, materials);
+
+      // Rest of the card setup...
+      const pos = cardPositions[index];
+      card.position.set(pos.start.x, pos.start.y, pos.start.z);
+      
+      // Reset to simple rotation
+      card.rotation.set(-0.1, pos.start.ry, 0);
+      
+      card.geometry.center();
+      cards.push(card);
+      scene.add(card);
+    });
+
+    // Animation state
+    let animationProgress = 0;
+    const animationDuration = 1200;
+    const startTime = Date.now();
+
+    function easeOutQuint(x: number): number {
+      return 1 - Math.pow(1 - x, 5);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTime;
+      animationProgress = Math.min(1, elapsed / animationDuration);
+      const eased = easeOutQuint(animationProgress);
+
+      const time = currentTime * 0.001;
+
+      // Keep only the card animation code below
+      cards.forEach((card, index) => {
+        const pos = cardPositions[index];
+        
+        // Smoother stagger timing
+        const staggerDelay = index * 0.1;  // Reduced from 0.15
+        const staggeredProgress = Math.max(0, Math.min(1, 
+          (animationProgress - staggerDelay) / (1 - staggerDelay)
+        ));
+        const staggeredEase = easeOutQuint(staggeredProgress);
+        
+        // Add subtle initial rise before fan-out
+        const riseProgress = Math.min(1, animationProgress * 2);
+        const initialRise = (1 - Math.cos(riseProgress * Math.PI)) * 0.1;
+        
+        // Adjust float and rotation amplitudes for larger cards
+        const floatOffset = Math.sin(time * 0.8 + index * Math.PI * 0.5) * 0.25 * staggeredProgress;
+        const sideFloat = Math.cos(time * 0.5 + index * Math.PI * 0.3) * 0.15 * staggeredProgress;
+        
+        // Larger bounce effect
+        const bounce = Math.sin(staggeredProgress * Math.PI) * 0.25 * (1 - staggeredProgress);
+        
+        // Combine all movements with smooth blending
+        card.position.x = pos.start.x + (pos.end.x - pos.start.x) * staggeredEase + sideFloat;
+        card.position.y = pos.start.y + initialRise + 
+                         (pos.end.y - pos.start.y) * staggeredEase + 
+                         floatOffset + bounce;
+        card.position.z = pos.start.z + (pos.end.z - pos.start.z) * staggeredEase;
+        
+        // Smoother rotation transitions
+        const rotateX = Math.sin(time * 0.7 + index * 0.5) * 0.1 * staggeredProgress;
+        const rotateY = Math.sin(time * 0.4 + index * Math.PI) * 0.15 * staggeredProgress;
+        const rotateZ = Math.cos(time * 0.6 + index * 0.8) * 0.05 * staggeredProgress;
+        
+        card.rotation.x = -0.1 + rotateX;
+        card.rotation.y = pos.start.ry + (pos.end.ry - pos.start.ry) * staggeredEase + rotateY;
+        card.rotation.z = rotateZ;
+        
+        // Add wave effect to emissive intensity
+        if (Array.isArray(card.material)) {
+          const frontMaterial = card.material[0] as THREE.MeshPhysicalMaterial;
+          frontMaterial.emissiveIntensity = 0.1 + Math.sin(time * 2 + index * Math.PI * 0.5) * 0.05;  // Increased variation
+        }
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    function handleResize() {
+      const newWidth = canvas.clientWidth;
+      const newHeight = canvas.clientHeight;
+      
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      
+      renderer.setSize(newWidth, newHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+    }
+
+    window.addEventListener('resize', handleResize);
+    animate();
+
+    // Fine-tune fog
+    scene.fog = new THREE.Fog(0x0a0f1c, 8, 35);
+  });
+</script> 

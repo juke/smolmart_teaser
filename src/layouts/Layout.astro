@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Smolmart - Community Art Platform" />
@@ -15,28 +15,80 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 	</head>
-	<body class="min-h-screen bg-white dark:bg-[#030014]">
+	<body class="bg-background text-foreground">
 		<slot />
 	</body>
 </html>
 
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		/* Base colors */
+		--color-primary: #7AC74F;    /* Green from logo */
+		--color-secondary: #FF9F1C;  /* Orange from logo */
+		--color-accent: #4361EE;     /* Blue accent */
+		--color-background: #0A0F1C;
+		--color-foreground: #FFFFFF;
+		--color-muted: #94A3B8;
+
+		/* shadcn colors */
+		--background: 222.2 84% 4.9%;
+		--foreground: 210 40% 98%;
+		--card: 222.2 84% 4.9%;
+		--card-foreground: 210 40% 98%;
+		--popover: 222.2 84% 4.9%;
+		--popover-foreground: 210 40% 98%;
+		--primary-foreground: 222.2 47.4% 11.2%;
+		--secondary-foreground: 222.2 47.4% 11.2%;
+		--muted-foreground: 215 20.2% 65.1%;
+		--accent-foreground: 210 40% 98%;
+		--border: 217.2 32.6% 17.5%;
+		--input: 217.2 32.6% 17.5%;
+		--ring: 212.7 26.8% 83.9%;
+		--radius: 0.5rem;
 	}
 
-	* {
+	html {
+		font-family: 'Outfit', system-ui, sans-serif;
+		background: var(--color-background);
+		color: var(--color-foreground);
+		letter-spacing: -0.025em;
+	}
+
+	body {
 		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
+		min-height: 100vh;
+	}
+
+	/* Smooth scrolling */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Custom scrollbar with fade effect */
+	::-webkit-scrollbar {
+		width: 4px;  /* Make scrollbar thinner */
+		background: transparent;
+	}
+
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: rgba(122, 199, 79, 0.5); /* Use primary color with opacity */
+		border-radius: 2px;
+		transition: all 0.3s ease;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: rgba(122, 199, 79, 0.8); /* More opaque on hover */
+	}
+
+	/* Firefox scrollbar */
+	html {
+		scrollbar-color: rgba(122, 199, 79, 0.5) transparent;
+		scrollbar-width: thin;
 	}
 </style>
