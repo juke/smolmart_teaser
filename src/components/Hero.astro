@@ -17,17 +17,14 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
       <img
         src={logo.src}
         alt="Smolmart Logo"
-        class="w-full max-w-[340px] sm:max-w-[500px] md:max-w-[640px] mx-auto animate-fade-in"
+        class="w-full max-w-[340px] sm:max-w-[500px] md:max-w-[640px] mx-auto animate-logo-intro drop-shadow-logo"
         style="object-fit: contain; height: auto;"
       />
     </div>
     
-    {/* Updated text container without wooden background */}
-    <div class="relative px-4 sm:px-8 animate-slide-up space-y-8">
-      {/* Simplified title section */}
+    <div class="relative px-4 sm:px-8 space-y-8">
       <div class="relative w-full max-w-4xl mx-auto">
-        <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-wider relative group">
-          {/* Animated gradient title */}
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-wider relative group animate-title-intro opacity-0">
           <span class="relative block mb-4">
             <span class="animate-gradient bg-gradient-to-r from-[#FFB938] via-[#2EAE4E] via-[#1A7431] via-[#4ECB71] to-[#FFB938] bg-[length:400%_auto] bg-clip-text text-transparent drop-shadow-glow tracking-wide">Meme-Driven</span>
           </span>
@@ -37,8 +34,7 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
         </h2>
       </div>
 
-      {/* Updated description text */}
-      <p class="relative text-lg sm:text-xl md:text-2xl font-medium max-w-3xl mx-auto leading-relaxed tracking-wide">
+      <p class="relative text-lg sm:text-xl md:text-2xl font-medium max-w-3xl mx-auto leading-relaxed tracking-wide animate-text-intro opacity-0">
         <span class="relative text-[#FFB938] drop-shadow-sm tracking-wide">Turn your favorite memes into <span class="font-bold tracking-wide">legendary art pieces</span>.</span>
         <br class="hidden sm:block" />
         <span class="relative text-[#4ECB71] tracking-wide">Join our jungle of creators, collect rare <span class="font-bold text-[#2EAE4E] tracking-wide">meme-sterpieces</span>,</span>
@@ -168,6 +164,63 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
   .animate-gradient-slow {
     animation: gradient 45s linear infinite;
     background-size: 400% auto;
+  }
+
+  /* Add custom drop shadow for the logo */
+  .drop-shadow-logo {
+    filter: drop-shadow(0 0 20px rgba(255, 185, 56, 0.15))
+           drop-shadow(0 0 35px rgba(46, 174, 78, 0.15))
+           drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+  }
+
+  /* Updated and new animations */
+  .animate-logo-intro {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: logoIntro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .animate-title-intro {
+    animation: titleIntro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.3s;
+  }
+
+  .animate-text-intro {
+    animation: textIntro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.6s;
+  }
+
+  @keyframes logoIntro {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes titleIntro {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes textIntro {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
 
