@@ -54,22 +54,10 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
   </div>
 
   <!-- Three.js Canvas Container -->
-  <div class="relative w-full -mt-12 sm:-mt-20 mb-48 sm:mb-64">
+  <div class="relative w-full -mt-12 sm:-mt-20 mb-64 sm:mb-80">
     <div class="absolute left-1/2 -translate-x-1/2" style="width: 150%;">
       <canvas id="art-gallery" class="w-full h-[320px] sm:h-[400px] rounded-xl"></canvas>
     </div>
-  </div>
-
-  <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mt-32 sm:mt-24 animate-slide-up">
-    {
-      ["CREATIVE", "MEMES", "VIRTUAL"].map((tag, i) => (
-        <span
-          class={`px-4 sm:px-6 py-2 bg-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 text-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'} rounded-lg text-xs sm:text-sm font-medium shadow-sm shadow-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 tracking-[0.2em] hover:scale-105 transition-transform`}
-        >
-          {tag}
-        </span>
-      ))
-    }
   </div>
 
   <div class="mt-8 sm:mt-12 w-full max-w-md px-4 animate-slide-up">
