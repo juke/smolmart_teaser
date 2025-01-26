@@ -6,29 +6,46 @@ interface Props {
   smol4: ImageMetadata;
 }
 
+import { Image } from 'astro:assets';
+import { Banana } from 'lucide-react';
 const { logo, smol2, smol3, smol4 } = Astro.props;
 ---
 
 <div class="flex flex-col items-center gap-8 sm:gap-12 text-center max-w-5xl mx-auto">
   <div class="space-y-6 sm:space-y-10">
-    <img
-      src={logo.src}
-      alt="Smolmart Logo"
-      class="h-32 sm:h-48 md:h-64 w-auto mx-auto animate-fade-in"
-    />
-    <div class="space-y-4 sm:space-y-6">
-      <div class="space-y-2">
-        <p class="text-xs sm:text-sm font-medium text-primary uppercase tracking-[0.2em] animate-slide-up">
-          Welcome to the future of art
-        </p>
-        <h1 class="text-3xl/tight sm:text-4xl/tight lg:text-5xl/tight font-bold tracking-normal animate-slide-up">
-          <span class="inline-block bg-gradient-to-b from-primary/40 to-primary/0 px-2 sm:px-4 py-1 -mx-2 sm:-mx-4">Community</span>
-          <span class="inline-block bg-gradient-to-b from-foreground/10 to-foreground/0 px-2 sm:px-4 py-1 -mx-2 sm:-mx-4"> Driven</span>
-          <span class="inline-block bg-gradient-to-b from-secondary/40 to-secondary/0 px-2 sm:px-4 py-1 -mx-2 sm:-mx-4"> Marketplace</span>
-        </h1>
+    <div class="w-full px-4 sm:px-8 md:px-12">
+      <img
+        src={logo.src}
+        alt="Smolmart Logo"
+        class="w-full max-w-[340px] sm:max-w-[500px] md:max-w-[640px] mx-auto animate-fade-in"
+        style="object-fit: contain; height: auto;"
+      />
+    </div>
+    
+    {/* Updated text container without wooden background */}
+    <div class="relative px-4 sm:px-8 animate-slide-up space-y-8">
+      {/* Simplified title section */}
+      <div class="relative w-full max-w-4xl mx-auto">
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-wider relative group">
+          {/* Animated gradient title */}
+          <span class="relative block mb-4">
+            <span class="animate-gradient bg-gradient-to-r from-[#FFB938] via-[#2EAE4E] via-[#1A7431] via-[#4ECB71] to-[#FFB938] bg-[length:400%_auto] bg-clip-text text-transparent drop-shadow-glow tracking-wide">Meme-Driven</span>
+          </span>
+          <span class="relative block">
+            <span class="animate-gradient bg-gradient-to-r from-[#FFB938] via-[#2EAE4E] via-[#1A7431] via-[#4ECB71] to-[#FFB938] bg-[length:400%_auto] bg-clip-text text-transparent drop-shadow-glow tracking-wide">Art Marketplace</span>
+          </span>
+        </h2>
       </div>
-      <p class="text-sm sm:text-base lg:text-lg text-muted/90 max-w-xl font-medium mx-auto tracking-wide [text-wrap:balance] px-4 animate-slide-up">
-        Join a vibrant community of creators and collectors. Buy, sell, and commission unique digital art and memes.
+
+      {/* Updated description text */}
+      <p class="relative text-lg sm:text-xl md:text-2xl font-medium max-w-3xl mx-auto leading-relaxed tracking-wide">
+        <span class="relative text-[#FFB938] drop-shadow-sm tracking-wide">Turn your favorite memes into <span class="font-bold tracking-wide">legendary art pieces</span>.</span>
+        <br class="hidden sm:block" />
+        <span class="relative text-[#4ECB71] tracking-wide">Join our jungle of creators, collect rare <span class="font-bold text-[#2EAE4E] tracking-wide">meme-sterpieces</span>,</span>
+        <br class="hidden sm:block" />
+        <span class="relative text-[#FFB938] tracking-wide">and stack those sweet, sweet <span class="font-bold animate-pulse-slow inline-flex items-center gap-1 tracking-wide">
+          bananas <Banana class="w-6 h-6" />
+        </span>.</span>
       </p>
     </div>
   </div>
@@ -51,7 +68,7 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
     {
       ["CREATIVE", "MEMES", "VIRTUAL"].map((tag, i) => (
         <span
-          class={`px-4 sm:px-6 py-2 bg-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 text-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'} rounded-lg text-xs sm:text-sm font-medium shadow-sm shadow-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 tracking-widest hover:scale-105 transition-transform`}
+          class={`px-4 sm:px-6 py-2 bg-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 text-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'} rounded-lg text-xs sm:text-sm font-medium shadow-sm shadow-${i === 0 ? 'primary' : i === 1 ? 'secondary' : 'accent'}/10 tracking-[0.2em] hover:scale-105 transition-transform`}
         >
           {tag}
         </span>
@@ -64,11 +81,11 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
       <input
         type="email"
         placeholder="Enter your email for early access"
-        class="flex-1 px-4 sm:px-6 py-3 rounded-lg bg-background/50 border border-primary/20 focus:border-primary/50 outline-none text-sm shadow-sm tracking-wide transition-transform hover:scale-[1.01] focus:scale-[1.01]"
+        class="flex-1 px-4 sm:px-6 py-3 rounded-lg bg-background/50 border border-primary/20 focus:border-primary/50 outline-none text-sm tracking-wider shadow-sm transition-transform hover:scale-[1.01] focus:scale-[1.01]"
       />
       <button
         type="submit"
-        class="px-6 py-3 rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground font-medium transition-transform hover:scale-[1.02] active:scale-[0.98]"
+        class="px-6 py-3 rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground font-medium tracking-wider transition-transform hover:scale-[1.02] active:scale-[0.98]"
       >
         Join Now
       </button>
@@ -99,6 +116,58 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* New animations */
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.5; }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-word-in {
+    animation: wordIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  @keyframes wordIn {
+    from {
+      opacity: 0;
+      transform: translateY(20%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-gradient {
+    animation: gradient 30s linear infinite;
+    background-size: 400% auto;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
+  }
+
+  /* Add glow effect */
+  .drop-shadow-glow {
+    filter: drop-shadow(0 0 15px rgba(255, 185, 56, 0.3))
+           drop-shadow(0 0 50px rgba(46, 174, 78, 0.2));
+    text-shadow: 0 0 20px rgba(255, 185, 56, 0.1);
+  }
+
+  /* Add slower gradient animation for description */
+  .animate-gradient-slow {
+    animation: gradient 45s linear infinite;
+    background-size: 400% auto;
   }
 </style>
 
