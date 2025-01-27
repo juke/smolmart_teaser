@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Our custom colors */
+    --color-background: #0A0F1C;
+    --color-foreground: #FFFFFF;
+    --color-primary: #7AC74F;
+    --color-secondary: #FFB938;
+    --color-accent: #4361EE;
+    --color-muted: #94A3B8;
+
+    /* shadcn required variables */
+    --background: 222.2 84% 4.9%;
+    --foreground: 0 0% 100%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 100%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 142 48% 54%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 37 100% 61%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 226 85% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 142 48% 54%;
+    --radius: 0.5rem;
+
+    --chart-1: 12 76% 61%;
+
+    --chart-2: 173 58% 39%;
+
+    --chart-3: 197 37% 24%;
+
+    --chart-4: 43 74% 66%;
+
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+/* Custom Animations */
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes wordIn {
+  from {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Classes */
+.animate-gradient {
+  animation: gradient 30s linear infinite;
+  background-size: 400% auto;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.drop-shadow-glow {
+  filter: drop-shadow(0 0 15px rgba(255, 185, 56, 0.3))
+         drop-shadow(0 0 50px rgba(46, 174, 78, 0.2));
+  text-shadow: 0 0 20px rgba(255, 185, 56, 0.1);
+}
+
+.drop-shadow-logo {
+  filter: drop-shadow(0 0 20px rgba(255, 185, 56, 0.15))
+         drop-shadow(0 0 35px rgba(46, 174, 78, 0.15))
+         drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+}
+
+.animate-logo-intro {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: logoIntro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-title-intro {
+  animation: titleIntro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.3s;
+}
+
+.animate-text-intro {
+  animation: textIntro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes logoIntro {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleIntro {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes textIntro {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

@@ -6,17 +6,12 @@ import logo from '../assets/logo.png';
 import smol2 from '../assets/smol2.png';
 import smol3 from '../assets/smol3.png';
 import smol4 from '../assets/smol4.png';
-import { NavigationMenu } from '../components/ui/navigation-menu';
+import waitlist_bg from '../assets/waitlist_bg.png';
 import Hero from '../components/Hero.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout title="Smolmart - Community Art Platform">
 	<main class="relative tracking-wide">
-		<NavigationMenu client:load />
-
 		<!-- Hero Section -->
 		<section class="relative min-h-screen overflow-hidden">
 			{/* Deep background - blurred glow effect */}
@@ -53,8 +48,8 @@ import Hero from '../components/Hero.astro';
 			</div>
 
 			{/* Content */}
-			<div class="relative z-30 container mx-auto px-4 sm:px-6 min-h-screen flex items-center justify-center py-20 sm:py-32">
-				<Hero logo={logo} smol2={smol2} smol3={smol3} smol4={smol4} />
+			<div class="relative z-30 w-full min-h-screen flex items-center justify-center pt-28 pb-20 sm:pt-32 sm:pb-32">
+				<Hero logo={logo} smol2={smol2} smol3={smol3} smol4={smol4} waitlist_bg={waitlist_bg} />
 			</div>
 		</section>
 	</main>
@@ -67,37 +62,6 @@ import Hero from '../components/Hero.astro';
 </style>
 
 <script>
-	const menuButton = document.getElementById('menuButton');
-	const mobileMenu = document.getElementById('mobileMenu');
-
-	if (menuButton && mobileMenu) {
-		menuButton.addEventListener('click', () => {
-			const isHidden = mobileMenu.style.display === 'none';
-			mobileMenu.style.display = isHidden ? 'block' : 'none';
-			
-			// Update the menu button icon
-			const svg = menuButton.querySelector('svg');
-			if (svg) {
-				if (isHidden) {
-					svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
-				} else {
-					svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
-				}
-			}
-		});
-
-		// Close mobile menu when clicking outside
-		document.addEventListener('click', (event) => {
-			if (!menuButton.contains(event.target as Node) && !mobileMenu.contains(event.target as Node)) {
-				mobileMenu.style.display = 'none';
-				const svg = menuButton.querySelector('svg');
-				if (svg) {
-					svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
-				}
-			}
-		});
-	}
-
 	let ticking = false;
 	
 	const handleParallax = () => {

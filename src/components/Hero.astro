@@ -4,20 +4,22 @@ interface Props {
   smol2: ImageMetadata;
   smol3: ImageMetadata;
   smol4: ImageMetadata;
+  waitlist_bg: ImageMetadata;
 }
 
 import { Image } from 'astro:assets';
 import { Banana } from 'lucide-react';
-const { logo, smol2, smol3, smol4 } = Astro.props;
+import { Badge } from "@/components/ui/badge";
+const { logo, smol2, smol3, smol4, waitlist_bg } = Astro.props;
 ---
 
 <div class="flex flex-col items-center gap-8 sm:gap-12 text-center max-w-5xl mx-auto">
-  <div class="space-y-6 sm:space-y-10">
+  <div class="space-y-6 sm:space-y-10 w-full max-w-3xl mx-auto">
     <div class="w-full px-4 sm:px-8 md:px-12">
       <img
         src={logo.src}
         alt="Smolmart Logo"
-        class="w-full max-w-[340px] sm:max-w-[500px] md:max-w-[640px] mx-auto animate-logo-intro drop-shadow-logo"
+        class="w-full max-w-[380px] sm:max-w-[460px] md:max-w-[580px] mx-auto animate-logo-intro drop-shadow-logo hover:scale-[1.02] transition-all duration-500"
         style="object-fit: contain; height: auto;"
       />
     </div>
@@ -35,13 +37,13 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
       </div>
 
       <p class="relative text-lg sm:text-xl md:text-2xl font-medium max-w-3xl mx-auto leading-relaxed tracking-wide animate-text-intro opacity-0">
-        <span class="relative text-[#FFB938] drop-shadow-sm tracking-wide">Turn your favorite memes into <span class="font-bold tracking-wide">legendary art pieces</span>.</span>
+        <span class="relative text-[#FFB938] drop-shadow-[0_3px_6px_rgba(0,0,0,0.3)] tracking-wide">Turn your favorite memes into <span class="font-bold tracking-wide">legendary art pieces
         <br class="hidden sm:block" />
-        <span class="relative text-[#4ECB71] tracking-wide">Join our jungle of creators, collect rare <span class="font-bold text-[#2EAE4E] tracking-wide">meme-sterpieces</span>,</span>
+        <span class="relative text-[#4ECB71] drop-shadow-[0_3px_6px_rgba(0,0,0,0.3)] tracking-wide">Join our jungle of creators, collect rare <span class="font-bold text-[#2EAE4E] tracking-wide">meme-sterpieces</span></span>
         <br class="hidden sm:block" />
-        <span class="relative text-[#FFB938] tracking-wide">and stack those sweet, sweet <span class="font-bold animate-pulse-slow inline-flex items-center gap-1 tracking-wide">
-          bananas <Banana class="w-6 h-6" />
-        </span>.</span>
+        <span class="relative text-[#FFB938] drop-shadow-[0_3px_6px_rgba(0,0,0,0.3] tracking-wide">and stack those sweet, sweet <span class="font-bold animate-pulse-slow inline-flex items-center gap-1 tracking-wide">
+          bananas <Banana className="w-6 h-6" />
+        
       </p>
     </div>
   </div>
@@ -54,30 +56,70 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
   </div>
 
   <!-- Three.js Canvas Container -->
-  <div class="relative w-full -mt-12 sm:-mt-20 mb-64 sm:mb-80">
-    <div class="absolute left-1/2 -translate-x-1/2" style="width: 150%;">
-      <canvas id="art-gallery" class="w-full h-[320px] sm:h-[400px] rounded-xl"></canvas>
+  <div class="relative w-full -mt-12 sm:-mt-20 mb-60 sm:mb-96">
+    <div class="absolute left-1/2 -translate-x-1/2" style="width: 170%;">  <!-- Increased from 150% to 180% for mobile -->
+      <canvas id="art-gallery" class="w-full h-[320px] sm:h-[400px] rounded-xl"></canvas>  <!-- Increased mobile height from 280px to 380px -->
     </div>
   </div>
-
-  <div class="mt-8 sm:mt-12 w-full max-w-md px-4 animate-slide-up">
-    <form class="flex flex-col sm:flex-row gap-3">
-      <input
-        type="email"
-        placeholder="Enter your email for early access"
-        class="flex-1 px-4 sm:px-6 py-3 rounded-lg bg-background/50 border border-primary/20 focus:border-primary/50 outline-none text-sm tracking-wider shadow-sm transition-transform hover:scale-[1.01] focus:scale-[1.01]"
+  <div class="mt-16 sm:mt-0 w-full max-w-[36rem] mx-auto px-4 sm:px-6 animate-slide-up pb-4 sm:pb-0 group/form hover:scale-[1.02] transition-transform duration-500">
+    <div class="relative overflow-hidden rounded-xl bg-[#5C3D2E]/40 shadow-lg hover:shadow-2xl transition-shadow duration-500">
+      <Image 
+        src={waitlist_bg} 
+        alt="Wooden Background"
+        class="absolute inset-0 w-full h-full object-cover brightness-[0.7] contrast-[1.1] saturate-[0.65] rounded-xl"
+        width={1000}
+        height={500}
       />
-      <button
-        type="submit"
-        class="px-6 py-3 rounded-lg bg-secondary hover:bg-secondary/90 text-secondary-foreground font-medium tracking-wider transition-transform hover:scale-[1.02] active:scale-[0.98]"
-      >
-        Join Now
-      </button>
-    </form>
+      <div class="relative z-10 p-4 sm:p-6 text-center space-y-4">
+        <h3 class="text-2xl sm:text-3xl font-bold tracking-wide uppercase text-[#FFB938] drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] hover:drop-shadow-[0_3px_6px_rgba(0,0,0,0.7)] transition-all duration-300">
+            <span class="text-shimmer">JOIN THE JUNGLE WAITLIST</span>
+        </h3>
+        <p class="text-white text-sm sm:text-base group-hover/form:text-white transition-colors duration-500 [text-shadow:0_1px_1px_rgba(0,0,0,0.9),0_-1px_1px_rgba(255,255,255,0.5)] mix-blend-overlay relative before:absolute before:inset-0 before:bg-[url('/wood-texture.png')] before:opacity-10 before:mix-blend-overlay before:pointer-events-none whitespace-nowrap tracking-wide">
+          Be the first to explore our meme-driven art marketplace!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 max-w-none mx-auto justify-center items-center">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="w-full sm:w-[280px] px-4 py-1.5 h-9 rounded-full bg-[#2C1810]/80 backdrop-blur-sm border-2 border-[#8B4513]/40 focus:border-[#FFB938] outline-none text-white/90 placeholder:text-white/60 text-sm transition-colors duration-300 focus:ring-2 focus:ring-[#FFB938]/20 hover:border-[#8B4513] shadow-inner tracking-wide"
+          />
+          <button
+            type="submit"
+            class="w-full sm:w-auto h-9 px-6 rounded-full bg-[#3D1F10] hover:bg-[#4D2812] text-[#FFB938] font-bold text-sm transition-colors duration-300 shadow-[inset_0_1px_2px_rgba(255,255,255,0.05),inset_0_-1px_2px_rgba(0,0,0,0.2),0_2px_4px_rgba(0,0,0,0.4)] hover:shadow-[0_3px_6px_rgba(0,0,0,0.3),inset_0_1px_2px_rgba(255,255,255,0.1),inset_0_-1px_2px_rgba(0,0,0,0.2)] active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] border-2 border-[#8B4513]/30 whitespace-nowrap tracking-wide"
+          >
+            Get Early Access
+          </button>
+        </div>
+        <div class="flex justify-center pt-1">
+          <Badge variant="outline" className="gap-1.5 py-1 px-3 text-xs bg-black/60 backdrop-blur-sm border-0 text-white/90 transition-all duration-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3),inset_0_-1px_2px_rgba(255,255,255,0.1)] rounded-full group relative overflow-hidden before:absolute before:inset-0 before:bg-[#FFB938]/5 before:rounded-full whitespace-nowrap tracking-wide">
+            <Banana className="w-3 h-3 text-[#FFB938]/90 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+            JOIN <span className="text-[#FFB938] font-bold text-xs px-0.5 group-hover:text-[#FFD938] transition-colors tracking-wide">420+</span> WAITING ARTISTS
+          </Badge>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <style>
+  .text-shimmer {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(to right, #FFB938 20%, #FFD938 30%, #FFE938 40%, #FFD938 50%, #FFB938 60%);
+    background-size: 200% auto;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: shimmer 3s linear infinite;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
+
   .animate-fade-in {
     opacity: 0;
     animation: fadeIn 0.8s ease-out forwards;
@@ -103,6 +145,47 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
   }
 
   /* New animations */
+  @keyframes badge-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(255, 185, 56, 0.2);
+      border-color: rgba(255, 185, 56, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(255, 185, 56, 0.25);
+      border-color: rgba(255, 185, 56, 0.6);
+    }
+  }
+
+  .animate-badge-glow {
+    animation: badge-glow 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-subtle {
+    0%, 100% {
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite;
+  }
+
   @keyframes pulse-slow {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 0.5; }
@@ -156,10 +239,15 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
 
   /* Add custom drop shadow for the logo */
   .drop-shadow-logo {
-    filter: drop-shadow(0 0 20px rgba(255, 185, 56, 0.15))
-           drop-shadow(0 0 35px rgba(46, 174, 78, 0.15))
-           drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3))
+           drop-shadow(0 0 20px rgba(0, 0, 0, 0.2))
+           drop-shadow(0 0 30px rgba(0, 0, 0, 0.1))
+           brightness(0.95)
+           contrast(1.05)
+           saturate(1.1);
   }
+
 
   /* Updated and new animations */
   .animate-logo-intro {
@@ -307,16 +395,16 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
     // Update the card positions to include both start and end positions
     const cardPositions = [
       { 
-        start: { x: 0, y: 2.0, z: 0.2, ry: 0 },
-        end: { x: -7.0, y: 2.2, z: 0, ry: 0.25 }
+        start: { x: 0, y: 2.5, z: 0.2, ry: 0 },  // Adjusted y from 2.0 to 2.5
+        end: { x: -8.0, y: 2.7, z: 0, ry: 0.25 }  // Adjusted x from -7.0 to -8.0, y from 2.2 to 2.7
       },
       { 
-        start: { x: 0, y: 1.95, z: 0.1, ry: 0 },
-        end: { x: 0, y: 1.9, z: 0, ry: -0.1 }
+        start: { x: 0, y: 2.45, z: 0.1, ry: 0 },  // Adjusted y from 1.95 to 2.45
+        end: { x: 0, y: 2.4, z: 0, ry: -0.1 }  // Adjusted y from 1.9 to 2.4
       },
       { 
-        start: { x: 0, y: 1.9, z: 0, ry: 0 },
-        end: { x: 7.0, y: 2.2, z: 0, ry: -0.25 }
+        start: { x: 0, y: 2.4, z: 0, ry: 0 },  // Adjusted y from 1.9 to 2.4
+        end: { x: 8.0, y: 2.7, z: 0, ry: -0.25 }  // Adjusted x from 7.0 to 8.0, y from 2.2 to 2.7
       }
     ];
     
@@ -446,4 +534,4 @@ const { logo, smol2, smol3, smol4 } = Astro.props;
     // Fine-tune fog
     scene.fog = new THREE.Fog(0x0a0f1c, 8, 35);
   });
-</script> 
+</script>
