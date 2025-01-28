@@ -8,57 +8,83 @@ import smol3 from '../assets/smol3.png';
 import smol4 from '../assets/smol4.png';
 import waitlist_bg from '../assets/waitlist_bg.png';
 import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
 ---
 
 <Layout title="Smolmart - Community Art Platform">
 	<main class="relative tracking-wide">
 		<!-- Hero Section -->
-		<section class="relative min-h-screen overflow-hidden">
-			{/* Deep background - blurred glow effect */}
-			<div 
-				class="absolute inset-0 z-0 scale-110"
-				data-scroll
-				style="transform: translateY(var(--scroll-offset-slow, 0px));"
-			>
-				<Image 
-					src={background} 
-					alt="Smolmart Background" 
-					class="w-full h-full object-cover opacity-20 blur-xl"
-				/>
-			</div>
-
-			{/* Main background layer */}
-			<div 
-				class="absolute inset-0 z-10"
-				data-scroll
-				style="transform: translateY(var(--scroll-offset-main, 0px));"
-			>
-				<div class="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background/90"></div>
-				<Image 
-					src={background} 
-					alt="Smolmart Background" 
-					class="w-full h-full object-cover opacity-30"
-				/>
-			</div>
-
-			{/* Vignette overlay for depth */}
-			<div class="absolute inset-0 z-20 pointer-events-none">
-				<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30"></div>
-				<div class="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30"></div>
-			</div>
-
-			{/* Content */}
-			<div class="relative z-30 w-full min-h-screen flex items-center justify-center pt-28 pb-20 sm:pt-32 sm:pb-32">
-				<Hero logo={logo} smol2={smol2} smol3={smol3} smol4={smol4} waitlist_bg={waitlist_bg} />
-			</div>
+		<section class="relative min-h-screen overflow-hidden flex flex-col">
+		  {/* Deep background - blurred glow effect */}
+		  <div 
+		    class="absolute inset-0 z-0 scale-110"
+		    data-scroll
+		    style="transform: translateY(var(--scroll-offset-slow, 0px));"
+		  >
+		    <Image 
+		      src={background} 
+		      alt="Smolmart Background" 
+		      class="w-full h-full object-cover opacity-20 blur-xl"
+		    />
+		  </div>
+		
+		  {/* Main background layer */}
+		  <div 
+		    class="absolute inset-0 z-10"
+		    data-scroll
+		    style="transform: translateY(var(--scroll-offset-main, 0px));"
+		  >
+		    <div class="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background/90"></div>
+		    <Image 
+		      src={background} 
+		      alt="Smolmart Background" 
+		      class="w-full h-full object-cover opacity-30"
+		    />
+		  </div>
+		
+		  {/* Vignette overlay for depth */}
+		  <div class="absolute inset-0 z-20 pointer-events-none">
+		    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30"></div>
+		    <div class="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30"></div>
+		  </div>
+		
+		  {/* Content */}
+		  <div class="relative z-30 w-full flex-1 flex items-center justify-center pt-28 pb-8 sm:pt-32 sm:pb-12">
+		    <Hero logo={logo} smol2={smol2} smol3={smol3} smol4={smol4} waitlist_bg={waitlist_bg} />
+		  </div>
+		
+		  <!-- Scroll Down Arrow -->
+		  <div class="relative z-30 hidden sm:flex justify-center pb-24 animate-bounce-slow">
+		    <a href="#how-it-works" class="group flex items-center justify-center w-12 h-12 rounded-full bg-[#2C1810]/40 backdrop-blur-sm border-2 border-[#8B4513]/20 hover:border-[#FFB938]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(255,185,56,0.1)]">
+		      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#FFB938] group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+		        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+		      </svg>
+		    </a>
+		  </div>
 		</section>
+
+		<!-- How It Works Section -->
+		<HowItWorks />
 	</main>
 </Layout>
 
 <style>
-	main {
-		width: 100%;
-	}
+  main {
+    width: 100%;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
 </style>
 
 <script>
